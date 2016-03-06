@@ -18,3 +18,14 @@ The API is available at: `http://localhost:3000/items`.
 `POST /items`  
 `PUT /items/:id`  
 `DELETE /items/:id`
+
+### Model
+
+The sample model is the following data type:
+
+```
+{
+    id: String,
+    name: String
+}
+```
