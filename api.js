@@ -1,74 +1,92 @@
 var _ = require('lodash');
+var passport = require('passport');
+var express = require('express');
+var router = express.Router();
+
+function ensureAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    console.error('Attempt to access protected API was rejected');
+    res.redirect('/?error=not-authenticated');
+}
 
 module.exports = function (app, Model, apiPath) {
 
-    // GET - Read
-    app.get('/' + apiPath + '/:id', function (req, res) {
-        Model.findById(req.params.id, function (error, update) {
-            if (error) {
-                res.json(error);
-                return;
-            }
+    router.route('/' + apiPath)
+        .get(
+            ensureAuthenticated,
+            function (req, res) {
+                Model.find(function (error, updates) {
+                    updates.push(req.user);
+                    res.json(updates);
+                });
+            });
 
-            if (update) {
-                res.json(update);
-            } else {
-                res.json({ info: 'not found' });
-            }
-        });
-    });
+    router.route('/' + apiPath + '/:id')
+        .get(
+            ensureAuthenticated,
+            function (req, res) {
+                Model.findById(req.params.id, function (error, update) {
+                    if (error) {
+                        res.json(error);
+                        return;
+                    }
 
-    // GET - Query
-    app.get('/' + apiPath, function (req, res) {
-        Model.find(function (error, updates) {
-            res.json(updates);
-        });
-    });
-
-    // POST - Create
-    app.post('/' + apiPath, function (req, res) {
-        var update = new Model(req.body);
-        update.save(function (error) {
-            if (error) {
-                res.json({ error: error });
-                return;
-            }
-            res.json({ info: 'created' });
-        });
-    });
-
-    // PUT - Update
-    app.put('/' + apiPath + '/:id', function (req, res) {
-        Model.findById(req.params.id, function (error, update) {
-            if (error) {
-                res.json(error);
-                return;
-            }
-
-            if (update) {
-                _.merge(update, req.body);
+                    if (update) {
+                        res.json(update);
+                    } else {
+                        res.json({ info: 'not found' });
+                    }
+                });
+            })
+        .post(
+            ensureAuthenticated,
+            function (req, res) {
+                var update = new Model(req.body);
                 update.save(function (error) {
                     if (error) {
                         res.json({ error: error });
                         return;
                     }
-
-                    res.json({ info: 'updated' })
+                    res.json({ info: 'created' });
                 });
-            } else {
-                res.json({ info: 'not found' });
-            }
-        });
-    });
+            })
+        .put(
+            ensureAuthenticated,
+            function (req, res) {
+                Model.findById(req.params.id, function (error, update) {
+                    if (error) {
+                        res.json(error);
+                        return;
+                    }
 
-    // DELETE - Remove
-    app.delete('/' + apiPath + '/:id', function (req, res) {
-        Model.findByIdAndRemove(req.params.id, function (error) {
-            if (error) {
-                res.json({ error: error })
-                return;
-            }
-            res.json({ info: 'removed' });
-        });
-    });
+                    if (update) {
+                        _.merge(update, req.body);
+                        update.save(function (error) {
+                            if (error) {
+                                res.json({ error: error });
+                                return;
+                            }
+
+                            res.json({ info: 'updated' })
+                        });
+                    } else {
+                        res.json({ info: 'not found' });
+                    }
+                });
+            })
+        .delete(
+            ensureAuthenticated,
+            function (req, res) {
+                Model.findByIdAndRemove(req.params.id, function (error) {
+                    if (error) {
+                        res.json({ error: error })
+                        return;
+                    }
+                    res.json({ info: 'removed' });
+                });
+            });
+
+    return router;
 };
