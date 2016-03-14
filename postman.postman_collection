@@ -1,6 +1,6 @@
 {
 	"id": "ac6912b2-fb1d-b99a-7874-60e38bdf48e3",
-	"name": "Node API",
+	"name": "Sample API",
 	"description": "",
 	"order": [
 		"9354a6de-e188-da53-5fb6-8b722883863d",
@@ -18,7 +18,7 @@
 		{
 			"id": "0a68f86c-5549-6e1a-6ea7-1cda401d1401",
 			"headers": "Content-Type: application/json\n",
-			"url": "http://localhost:3000/items/1",
+			"url": "http://localhost:3000/api/items/1",
 			"preRequestScript": "",
 			"pathVariables": {},
 			"method": "PUT",
@@ -38,7 +38,7 @@
 		{
 			"id": "1a0077fb-54a1-2cfe-179e-b2491b1462d6",
 			"headers": "",
-			"url": "http://localhost:3000/items/56d7cd8750441a7a7dfb576f",
+			"url": "http://localhost:3000/api/items/56d7cd8750441a7a7dfb576f",
 			"preRequestScript": "",
 			"pathVariables": {},
 			"method": "GET",
@@ -57,7 +57,7 @@
 		{
 			"id": "9354a6de-e188-da53-5fb6-8b722883863d",
 			"headers": "",
-			"url": "http://localhost:3000/items/",
+			"url": "http://localhost:3000/api/items/",
 			"pathVariables": {},
 			"preRequestScript": "",
 			"method": "GET",
@@ -77,7 +77,7 @@
 		{
 			"id": "967f9572-91fa-4420-937f-795434477c4c",
 			"headers": "",
-			"url": "http://localhost:3000/items/1",
+			"url": "http://localhost:3000/api/items/1",
 			"preRequestScript": "",
 			"pathVariables": {},
 			"method": "DELETE",
@@ -96,7 +96,7 @@
 		{
 			"id": "e0831ba2-6ef7-ffbc-4081-a092454832b8",
 			"headers": "Content-Type: application/json\n",
-			"url": "http://localhost:3000/items/",
+			"url": "http://localhost:3000/api/items/",
 			"preRequestScript": "",
 			"pathVariables": {},
 			"method": "POST",

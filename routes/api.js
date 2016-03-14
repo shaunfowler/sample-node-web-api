@@ -18,7 +18,6 @@ module.exports = function (app, Model, apiPath) {
             ensureAuthenticated,
             function (req, res) {
                 Model.find(function (error, updates) {
-                    updates.push(req.user);
                     res.json(updates);
                 });
             });

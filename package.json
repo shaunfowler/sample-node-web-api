@@ -2,13 +2,13 @@
   "name": "sample-node-web-api",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "body-parser": "^1.15.0",
     "express": "^4.13.4",
@@ -19,5 +19,8 @@
     "passport-google-oauth": "^1.0.0",
     "passport-http-bearer": "^1.0.1",
     "request": "^2.69.0"
+  },
+  "devDependencies": {
+    "bower": "^1.7.7"
   }
 }
