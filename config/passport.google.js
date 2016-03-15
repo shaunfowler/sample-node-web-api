@@ -1,9 +1,10 @@
 var passport = require('passport');
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+var authConfig = require('./auth');
 
 var strategySettings = {
-    clientID: 'abcdefg',
-    clientSecret: 'abcdefg',
+    clientID: authConfig.google.clientID,
+    clientSecret: authConfig.google.clientSecret,
     callbackURL: 'http://localhost:3000/auth/google/callback'
 };
 

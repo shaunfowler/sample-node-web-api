@@ -1,21 +1,13 @@
-var _ = require('lodash');
 var passport = require('passport');
 var express = require('express');
+var authMiddleware = require('../authMiddleware');
 var router = express.Router();
-
-function ensureAuthenticated(req, res, next) {
-    if (req.isAuthenticated()) {
-        return next();
-    }
-    console.error('Attempt to access protected API was rejected');
-    res.redirect('/?error=not-authenticated');
-}
 
 module.exports = function (app, Model, apiPath) {
 
     router.route('/' + apiPath)
         .get(
-            ensureAuthenticated,
+            authMiddleware,
             function (req, res) {
                 Model.find(function (error, updates) {
                     res.json(updates);
@@ -24,7 +16,7 @@ module.exports = function (app, Model, apiPath) {
 
     router.route('/' + apiPath + '/:id')
         .get(
-            ensureAuthenticated,
+            authMiddleware,
             function (req, res) {
                 Model.findById(req.params.id, function (error, update) {
                     if (error) {
@@ -40,7 +32,7 @@ module.exports = function (app, Model, apiPath) {
                 });
             })
         .post(
-            ensureAuthenticated,
+            authMiddleware,
             function (req, res) {
                 var update = new Model(req.body);
                 update.save(function (error) {
@@ -52,7 +44,7 @@ module.exports = function (app, Model, apiPath) {
                 });
             })
         .put(
-            ensureAuthenticated,
+            authMiddleware,
             function (req, res) {
                 Model.findById(req.params.id, function (error, update) {
                     if (error) {
@@ -76,7 +68,7 @@ module.exports = function (app, Model, apiPath) {
                 });
             })
         .delete(
-            ensureAuthenticated,
+            authMiddleware,
             function (req, res) {
                 Model.findByIdAndRemove(req.params.id, function (error) {
                     if (error) {

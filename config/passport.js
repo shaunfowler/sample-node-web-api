@@ -1,6 +1,5 @@
 var passport = require('passport');
-
-var emailAllowList = ['john.smith@example.org'];
+var authConfig = require('./auth');
 
 module.exports = function (app) {
 
@@ -16,7 +15,7 @@ module.exports = function (app) {
         console.log('Deserialized user -', JSON.stringify(user));
         
         // Check if the user exists in our database
-        if (emailAllowList.indexOf(user.email) === -1) {
+        if (authConfig.allowedEmailAddresses.indexOf(user.email) === -1) {
             console.error('User not found in allow list - ', JSON.stringify(user.email));
             done(null, false);
         } else {
