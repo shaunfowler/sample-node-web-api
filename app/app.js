@@ -13,11 +13,11 @@ angular.module('app').config(['$routeProvider',
                     }
                 };
 
-                $http.get('http://localhost:3000/user').then(function (response) {
+                $http.get('/user').then(function (response) {
                     $scope.user = response.data;
                 }, errorCallback);
 
-                $http.get('http://localhost:3000/api/items').then(function (response) {
+                $http.get('/api/items').then(function (response) {
                     $scope.data = response.data;
                 }, errorCallback);
 

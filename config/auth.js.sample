@@ -1,0 +1,16 @@
+module.exports = {
+
+    // Hostname of the server
+    apiHostname: 'example.com',
+    
+    // User email allow list
+    allowedEmailAddresses: [
+        'john.smith@example.com'
+    ],
+    
+    // Google API creds
+    google: {
+        clientID: 'client id goes here',
+        clientSecret: 'client secret goes here'
+    }
+};

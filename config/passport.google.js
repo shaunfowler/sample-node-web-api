@@ -5,7 +5,7 @@ var authConfig = require('./auth');
 var strategySettings = {
     clientID: authConfig.google.clientID,
     clientSecret: authConfig.google.clientSecret,
-    callbackURL: 'http://localhost:3000/auth/google/callback'
+    callbackURL: 'http://' + authConfig.apiHostname  + '/auth/google/callback'
 };
 
 module.exports = function (app) {
